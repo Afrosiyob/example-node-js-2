@@ -6,6 +6,8 @@ const { connectMongoDB } = require( "../services/connects" );
 const { userRouter } = require( "../src/routes/user.routes" );
 const { logger } = require( "../src/logger/logger" );
 const winston = require( "winston" );
+const { errorHandler } = require( "../src/errors/errorHandler" );
+const { authRouter } = require( "../src/routes/auth.routes" );
 
 
 // Create App server
@@ -34,8 +36,15 @@ if ( app.get( "env" ) === "development" ) {
 }
 
 // Api Routes
-
 app.use( "/api/v1/user", userRouter )
+app.use( "/api/v1/auth", authRouter )
+
+
+
+
+// Error Handler
+// Please put this code after last middleware
+app.use( errorHandler )
 
 // Create PORT
 const PORT = config.get( "PORT" ) || process.env.PORT || 5000
