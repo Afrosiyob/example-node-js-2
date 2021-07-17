@@ -20,11 +20,15 @@
   },
   "homepage": "https://github.com/Afrosiyob/example-node-js-2#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
     "express": "^4.17.1",
+    "express-validator": "^6.12.0",
+    "lodash": "^4.17.21",
     "mongoose": "^5.13.2",
     "morgan": "^1.10.0",
-    "serve-index": "^1.9.1"
+    "serve-index": "^1.9.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
