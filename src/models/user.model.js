@@ -7,6 +7,10 @@ const schema = new Schema( {
         minimum: 3,
         maximum: 250
     },
+    role: {
+        type: String,
+        default: "user"
+    },
     password: {
         type: String,
         required: true,

@@ -27,6 +27,21 @@ const authLogin = async ( req, res, next ) => {
     }
 }
 
+
+const authMe = async ( req, res, next ) => {
+    const { userId } = req.user
+    const checkUser = await UserModel.findById( userId )
+    if ( !checkUser ) {
+        next( ApiError.UnauthorizedError( "failid token", "wrong or invalid token" ) )
+    } else {
+        res.status( 200 ).json( {
+            data: _.pick( checkUser, [ "username" ] ),
+            message: "user info"
+        } )
+    }
+}
+
 module.exports = {
-    authLogin
+    authLogin,
+    authMe
 }

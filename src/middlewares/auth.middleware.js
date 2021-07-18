@@ -1,6 +1,6 @@
-const { authLogin } = require( "../controllers/auth.controller" );
+const { authLogin, authMe } = require( "../controllers/auth.controller" );
 const { authLoginValidation } = require( "../validations/auth.validation" );
-const { validationError, checkAuthToken } = require( "./middlewares" );
+const { validationError, checkAuthToken, setPermissions } = require( "./middlewares" );
 
 const authLoginMiddleware = [
     ...authLoginValidation,
@@ -8,6 +8,13 @@ const authLoginMiddleware = [
     authLogin
 ]
 
+const authMeMiddleware = [
+    checkAuthToken,
+    setPermissions( "admin" ),
+    authMe
+]
+
 module.exports = {
-    authLoginMiddleware
+    authLoginMiddleware,
+    authMeMiddleware
 }
