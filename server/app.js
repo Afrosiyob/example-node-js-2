@@ -39,9 +39,6 @@ if ( app.get( "env" ) === "development" ) {
 app.use( "/api/v1/user", userRouter )
 app.use( "/api/v1/auth", authRouter )
 
-
-
-
 // Error Handler
 // Please put this code after last middleware
 app.use( errorHandler )
