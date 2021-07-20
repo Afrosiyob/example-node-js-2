@@ -30,13 +30,18 @@ const checkAuthToken = async ( req, res, next ) => {
             if ( !token ) {
                 await res.status( 401 ).json( { message: "auth error try middleware" } );
             } else {
-                let decoded = jwt.verify( token, config.get( "jwtSecret" ) );
-                req.user = decoded;
-                res.setHeader( "Last-Modified", new Date().toUTCString() );
-                await next();
+                try {
+                    let decoded = jwt.verify( token, config.get( "jwtSecret" ) );
+                    req.user = decoded;
+                    res.setHeader( "Last-Modified", new Date().toUTCString() );
+                    await next();
+                } catch ( error ) {
+                    console.log( error.message );
+                    next( ApiError.UnauthorizedError( error, "invalid token" ) )
+                }
             }
         } catch ( error ) {
-            return ApiError.UnauthorizedError( error, "auth error" )
+            next( ApiError.UnauthorizedError( error, "auth error" ) )
         }
     }
 }
